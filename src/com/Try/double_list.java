@@ -201,49 +201,68 @@ public class double_list {
     }
     public void Reverse(){
         // current for traversing and temp for swaping
-        link current = head , temp = null;
-        while(current.next != null){
-            current = current.next;
-            temp = current.pre.next;
-            current.pre.next = current.pre.pre;
-            current.pre.pre = temp;
+        link temp = null;
+        tail = head;
+        while(head.next != null){
+            head = head.next;
+            temp = head.pre.next;
+            head.pre.next = head.pre.pre;
+            head.pre.pre = temp;
         }
-        temp = current.next;
-        current.next = current.pre;
-        current.pre = temp;
-        temp = head;
-        head = tail;
-        tail =  temp;
+        temp = head.next;
+        head.next = head.pre;
+        head.pre = temp;
     }
+
+    private link remove(link node){
+        if(node.next != null)node.next.pre = node.pre;
+        if(node.pre != null)node.pre.next = node.next;
+        if(tail == node)tail = node.pre;
+        return node;
+    }
+
+    private link getpos(link current){
+        link temp = current.pre;
+        while(temp != null && temp.get_data() > current.get_data())
+            temp = temp.pre;
+        return temp;
+    }
+
+    private void add(link current){
+        link temp = getpos(current);
+        if(temp == null){
+            current.next = head;
+            current.pre = null;
+            head.pre = current;
+            head = current;
+            return;
+        }
+        current.next = temp.next;
+        current.pre = temp;
+        current.next.pre = current;
+        temp.next = current;
+    }
+
     public void Insertion_sort(){
         if(this.empty())return;
-        link current = head.next ,Next = null;
+        link current = head.next;
         while(current != null){
-            link temp = current.pre;
-            Next = current.next;
-            if(current.get_data() > current.pre.get_data()){
-                current = Next;
+            if(current.get_data() >= current.pre.get_data()){
+                current = current.next;
                 continue;
             }
-            // removing current from it's place
-            if(current.pre != null)current.pre.next = current.next;
-            if(current.next != null)current.next.pre = current.pre;
-            if(tail == current)tail = temp;
-            while(temp != null && temp.get_data() > current.get_data())temp = temp.pre;
-            // adding current in it's position
-            if(temp == null){
-                current.next = head;
-                current.pre = null;
-                head.pre = current;
-                head = current;
-                current = Next;
-                continue;
+            if(current.next != null) {
+                current = current.next;
+                //removing then adding current in it's position
+                if(current.pre != null)this.add(remove(current.pre));
             }
-            current.next = temp.next;
-            current.pre = temp;
-            current.next.pre = current;
-            temp.next = current;
-            current = Next;
+            else {
+                // removing current from it's place
+                this.remove(current);
+                // adding current in it's position
+                this.add(current);
+                current = null;
+            }
         }
     }
 }
