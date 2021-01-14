@@ -9,5 +9,10 @@ import java.util.Scanner;
 * */
 public class Main {
     public static void main(String[] args) {
+        double_list list = new double_list();
+        for(int i = 0; i < 10 ;i++)list.push_back(i);
+       // list.print_front();
+        list.Reverse();
+        list.print_front();
     }
 }

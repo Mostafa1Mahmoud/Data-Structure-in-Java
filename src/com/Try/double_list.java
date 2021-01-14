@@ -169,4 +169,20 @@ public class double_list {
             temp=temp.next;
         }
     }
+    public void Reverse(){
+        // current for traversing and temp for swaping
+        link current = head , temp = null;
+        while(current.next != null){
+            current = current.next;
+            temp = current.pre.next;
+            current.pre.next = current.pre.pre;
+            current.pre.pre = temp;
+        }
+        temp = current.next;
+        current.next = current.pre;
+        current.pre = temp;
+        temp = head;
+        head = tail;
+        tail =  temp;
+    }
 }
