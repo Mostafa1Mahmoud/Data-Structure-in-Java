@@ -2,7 +2,7 @@ package com.Try;
 
 import java.util.Stack;
 
-public class Searching_Algorithms {
+public class Sorting_Algorithms {
     public static int[] Buble_sort(int[] array,int size){ //O(N^2) Comparisons & Swaps
         for(int i=0;i<size;i++){
             for(int j=i+1;j<size;j++){

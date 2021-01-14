@@ -153,7 +153,7 @@ public class double_list {
         list.set_head(head);
         tail= list.get_tail();
     }
-    public void sort(){
+    public void Bubble_sort(){
         if(this.empty())return;
         link temp = head;
         while(temp.next!=null){
@@ -184,5 +184,8 @@ public class double_list {
         temp = head;
         head = tail;
         tail =  temp;
+    }
+    public void Insertion_sort(){
+
     }
 }
