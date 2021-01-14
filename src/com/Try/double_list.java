@@ -22,6 +22,9 @@ public class double_list {
     public boolean empty(){
         return head==null&&tail==null;
     }
+    public void clear(){
+        head = tail = null;
+    }
     public void print_front(){
         if(this.empty())return;
         link temp=head;
@@ -94,6 +97,33 @@ public class double_list {
         }
         pre.next = link;
         link.next = temp;
+    }
+    public void add_by_index(int index,int value){
+        if(this.empty()){
+            head = new link(value);
+            return;
+        }
+        if(index==0){
+            link node =new link(value);
+            node.next=head;
+            head = node;
+            return;
+        }
+        link temp = head,pre = head,node = new link(value);
+        int itr=0;
+        while(temp!=null){
+            if(itr==index){
+                node.next = temp;
+                node.pre = temp.pre;
+                temp.pre = node;
+                pre.next = node;
+                return;
+            }
+            pre=temp;
+            temp=temp.next;
+            itr++;
+        }
+        pre.next = node;
     }
     public void delete_by_data(int data){
         if(this.empty())return;
@@ -186,6 +216,34 @@ public class double_list {
         tail =  temp;
     }
     public void Insertion_sort(){
-
+        if(this.empty())return;
+        link current = head.next ,Next = null;
+        while(current != null){
+            link temp = current.pre;
+            Next = current.next;
+            if(current.get_data() > current.pre.get_data()){
+                current = Next;
+                continue;
+            }
+            // removing current from it's place
+            if(current.pre != null)current.pre.next = current.next;
+            if(current.next != null)current.next.pre = current.pre;
+            if(tail == current)tail = temp;
+            while(temp != null && temp.get_data() > current.get_data())temp = temp.pre;
+            // adding current in it's position
+            if(temp == null){
+                current.next = head;
+                current.pre = null;
+                head.pre = current;
+                head = current;
+                current = Next;
+                continue;
+            }
+            current.next = temp.next;
+            current.pre = temp;
+            current.next.pre = current;
+            temp.next = current;
+            current = Next;
+        }
     }
 }
