@@ -179,5 +179,4 @@ public class BST {
          if(Node == null)return cnt;
          return Math.max(depth(cnt+1,Node.getLeftChild()),depth(cnt+1,Node.getRightChild()));
      }
-
 }
