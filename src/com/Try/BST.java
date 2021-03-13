@@ -179,4 +179,15 @@ public class BST {
          if(Node == null)return cnt;
          return Math.max(depth(cnt+1,Node.getLeftChild()),depth(cnt+1,Node.getRightChild()));
      }
+     public void removeLeaf(BT_Node root){
+         if(root == null)return;
+         if(root.getLeftChild() != null && root.getLeftChild().getLeftChild() == null && root.getLeftChild().getRightChild() == null){
+             root.setLeftChild(null);
+         }
+         if(root.getRightChild() != null && root.getRightChild().getLeftChild() == null && root.getRightChild().getRightChild() == null){
+             root.setRightChild(null);
+         }
+         removeLeaf(root.getLeftChild());
+         removeLeaf(root.getRightChild());
+     }
 }
